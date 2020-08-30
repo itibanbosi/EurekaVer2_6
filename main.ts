@@ -534,9 +534,10 @@ namespace eureka_blocks_soro {
     }
   }
 
-  //% color="#009A00" weight=28 blockId=sonar_ping_3 block="|%pin| |%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
+  //% color="#009A00" weight=28 blockId=sonar_ping_3 block="Aポート |%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
   //% limit.min=0 limit.max=50
-  export function sonar_ping_3(pin:eureka_tlp,sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean {
+  export function sonar_ping_3(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
+
         if (sonar_quality　==sonar_avg.低速高精度){
             sonar_quality=20;
         }
@@ -546,10 +547,12 @@ namespace eureka_blocks_soro {
         if (sonar_quality==sonar_avg.高速低精度){
             sonar_quality=1;
         }
+
     let  d1=0;
     let  d2=0;
 
-    if (pin==eureka_tlp.Aﾎﾟｰﾄ){
+/*    if (pin==eureka_tlp.Aﾎﾟｰﾄ){
+  */
         for ( let i=0 ; i<sonar_quality ; i++ ){
         // send
         basic.pause(5);
@@ -565,22 +568,21 @@ namespace eureka_blocks_soro {
         }
         switch(nagasa){
             case kyori.短い:
-            if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
-            return true;
-            } else {
-            return false;
-            }
-            break;
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return true;
+                } else {
+                return false;
+                }
             case kyori.長い:
-            if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
-            return false;
-            } else {
-            return true;
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return false;
+                } else {
+                return true;
             }
-            break;
         }
     }
-        if (pin==eureka_tlp.Bﾎﾟｰﾄ){
+/*
+        if (pin == eureka_tlp.Bﾎﾟｰﾄ) {
         for ( let i=0 ; i<sonar_quality ; i++ ){
         // send
         basic.pause(5);
@@ -594,24 +596,24 @@ namespace eureka_blocks_soro {
         d1 = pins.pulseIn(DigitalPin.P16, PulseValue.High, 500 * 58);
         d2= d1+d2;
         }
+
         switch(nagasa){
             case kyori.短い:
-            if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
-            return true;
-            } else {
-            return false;
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return true;
+                } else {
+                return false;
             }
-            break;
             case kyori.長い:
-            if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
-            return false;
-            } else {
-            return true;
-            }
-            break;        
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return false;
+                } else {
+                return true;
             }
         }
-    }
+*/
+    
+
 
   //% color="#f071bd" weight=26 blockId=eureka_CdS block="単体_ﾌｫﾄﾘﾌﾚｸﾀｰ |%pin|" group="5_単体ユニットセンサー"
   export function eureka_CdS(pin: eureka_IO): number {
