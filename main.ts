@@ -534,10 +534,9 @@ namespace eureka_blocks_soro {
     }
   }
 
-  //% color="#009A00" weight=28 blockId=sonar_ping_3 block="Aポート |%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
+  //% color="#009A00" weight=28 blockId=sonar_ping_3 block="Aポート|%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
   //% limit.min=0 limit.max=50
-  export function sonar_ping_3(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
-
+  export function sonar_ping_3(pin:eureka_tlp,sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
         if (sonar_quality　==sonar_avg.低速高精度){
             sonar_quality=20;
         }
@@ -551,8 +550,7 @@ namespace eureka_blocks_soro {
     let  d1=0;
     let  d2=0;
 
-/*    if (pin==eureka_tlp.Aﾎﾟｰﾄ){
-  */
+
         for ( let i=0 ; i<sonar_quality ; i++ ){
         // send
         basic.pause(5);
@@ -580,7 +578,8 @@ namespace eureka_blocks_soro {
                 return true;
             }
         }
-    }
+  }
+
 /*
         if (pin == eureka_tlp.Bﾎﾟｰﾄ) {
         for ( let i=0 ; i<sonar_quality ; i++ ){
