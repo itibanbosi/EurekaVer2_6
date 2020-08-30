@@ -39,9 +39,9 @@ enum L9110moter {
   seisi,
 }
 enum sonar_avg{
-    低速高精度,
-    中速中精度,
-    高速低精度,
+    平均20回,
+    平均5回,
+    生データ,
 }
 enum kyori{
     短い,
@@ -486,13 +486,13 @@ namespace eureka_blocks_soro {
 
   //% color="#2a2aba" weight=30 blockId=sonar_ping block="超音波きょりｾﾝｻ　|%pin| |%sonar_quality|" group="5_単体ユニットセンサー"
   export function ping(pin: eureka_tlp,sonar_quality:sonar_avg): number {
-        if (sonar_quality　==sonar_avg.低速高精度){
+        if (sonar_quality　==sonar_avg.平均20回){
             sonar_quality=20
         }
-        if (sonar_quality==sonar_avg.中速中精度){
+        if (sonar_quality==sonar_avg.平均5回){
             sonar_quality=5
         }        
-        if (sonar_quality==sonar_avg.高速低精度){
+        if (sonar_quality==sonar_avg.生データ){
             sonar_quality=1
         }
     let  d1=0;
@@ -537,13 +537,13 @@ namespace eureka_blocks_soro {
   //% color="#009A00" weight=28 blockId=sonar_ping_3 block="Aﾎﾟｰﾄ |%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
   //% limit.min=0 limit.max=50
   export function sonar_ping_3(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
-        if (sonar_quality　==sonar_avg.低速高精度){
+        if (sonar_quality　==sonar_avg.平均20回){
             sonar_quality=20;
         }
-        if (sonar_quality==sonar_avg.中速中精度){
+        if (sonar_quality==sonar_avg.平均5回){
             sonar_quality=5;
         }        
-        if (sonar_quality==sonar_avg.高速低精度){
+        if (sonar_quality==sonar_avg.生データ){
             sonar_quality=1;
         }
 
