@@ -201,6 +201,10 @@ namespace eureka_blocks {
     }
   }
 }
+
+
+
+
 //% color="#74ad1d" block="ﾕｰﾚｶ単体ﾕﾆｯﾄ" 
 
 namespace eureka_blocks_soro {
