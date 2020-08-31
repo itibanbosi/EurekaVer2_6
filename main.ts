@@ -542,7 +542,6 @@ namespace eureka_blocks_soro {
         let  d2=0;
     switch(pin){
         case eureka_tlp.Aﾎﾟｰﾄ:
-
         for ( let i=0 ; i<20 ; i++ ){
         // send
         basic.pause(5);
@@ -561,7 +560,6 @@ namespace eureka_blocks_soro {
             } else {
             return false;
             }
-        
 
         case eureka_tlp.Bﾎﾟｰﾄ :
         for ( let i=0 ; i<20 ; i++ ){
