@@ -201,10 +201,6 @@ namespace eureka_blocks {
     }
   }
 }
-
-
-
-
 //% color="#74ad1d" block="ﾕｰﾚｶ単体ﾕﾆｯﾄ" 
 
 namespace eureka_blocks_soro {
@@ -501,7 +497,10 @@ namespace eureka_blocks_soro {
         }
     let  d1=0;
     let  d2=0;
+
     switch (pin) {
+
+
     case eureka_tlp.Aﾎﾟｰﾄ:
         for ( let i=0 ; i<sonar_quality ; i++ ){
             basic.pause(5);
@@ -517,6 +516,7 @@ namespace eureka_blocks_soro {
             }
             return Math.round(Math.idiv(d2/sonar_quality, 58)*1.5);
         break;
+
     case eureka_tlp.Bﾎﾟｰﾄ:
         for  ( let i=0 ; i<sonar_quality; i++){
         basic.pause(20);
@@ -534,15 +534,24 @@ namespace eureka_blocks_soro {
     }
   }
 
-  
-  //% color="#2a2aba" weight=27 blockId=sonar_ping_4 block="きょりが |%limit| cmより短い |%pin|" group="5_単体ユニットセンサー"
+  //% color="#009A00" weight=28 blockId=sonar_ping_3 block="Aﾎﾟｰﾄ |%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
   //% limit.min=0 limit.max=50
-  export function sonar_ping_4(limit:number,pin:eureka_tlp) :boolean {
-        let  d1=0;
-        let  d2=0;
-    switch(pin){
-        case eureka_tlp.Aﾎﾟｰﾄ:
-        for ( let i=0 ; i<20 ; i++ ){
+  export function sonar_ping_3(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
+        if (sonar_quality　==sonar_avg.平均20回){
+            sonar_quality=20;
+        }
+        if (sonar_quality==sonar_avg.平均5回){
+            sonar_quality=5;
+        }        
+        if (sonar_quality==sonar_avg.生データ){
+            sonar_quality=1;
+        }
+
+    let  d1=0;
+    let  d2=0;
+
+
+        for ( let i=0 ; i<sonar_quality ; i++ ){
         // send
         basic.pause(5);
         pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
@@ -555,14 +564,25 @@ namespace eureka_blocks_soro {
         d1 = pins.pulseIn(DigitalPin.P14, PulseValue.High, 500 * 58);
         d2= d1+d2;
         }
-        if (Math.idiv(d2/20, 58) * 1.5 < limit) {
-            return true;
-            } else {
-            return false;
+        switch(nagasa){
+            case kyori.短い:
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return true;
+                } else {
+                return false;
+                }
+            case kyori.長い:
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return false;
+                } else {
+                return true;
             }
+        }
+  }
 
-        case eureka_tlp.Bﾎﾟｰﾄ :
-        for ( let i=0 ; i<20 ; i++ ){
+/*
+        if (pin == eureka_tlp.Bﾎﾟｰﾄ) {
+        for ( let i=0 ; i<sonar_quality ; i++ ){
         // send
         basic.pause(5);
         pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
@@ -575,13 +595,70 @@ namespace eureka_blocks_soro {
         d1 = pins.pulseIn(DigitalPin.P16, PulseValue.High, 500 * 58);
         d2= d1+d2;
         }
-        if (Math.idiv(d2/20, 58) * 1.5 < limit) {
-            return true;
-            } else {
-            return false;
+
+        switch(nagasa){
+            case kyori.短い:
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return true;
+                } else {
+                return false;
+            }
+            case kyori.長い:
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return false;
+                } else {
+                return true;
             }
         }
-    }
+*/
+    
+  //% color="#009A00" weight=27 blockId=sonar_ping_4 block="Bﾎﾟｰﾄ |%sonar_quality| きょりが |%limit| cmより |%nagasa|" group="5_単体ユニットセンサー"
+  //% limit.min=0 limit.max=50
+  export function sonar_ping_4(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
+        if (sonar_quality　==sonar_avg.平均20回){
+            sonar_quality=20;
+        }
+        if (sonar_quality==sonar_avg.平均5回){
+            sonar_quality=5;
+        }        
+        if (sonar_quality==sonar_avg.生データ){
+            sonar_quality=1;
+        }
+
+    let  d1=0;
+    let  d2=0;
+
+
+        for ( let i=0 ; i<sonar_quality ; i++ ){
+        // send
+        basic.pause(5);
+        pins.setPull(DigitalPin.P16, PinPullMode.PullNone);
+        pins.digitalWritePin(DigitalPin.P15, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(DigitalPin.P15, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(DigitalPin.P15, 0);
+        // read
+        d1 = pins.pulseIn(DigitalPin.P16, PulseValue.High, 500 * 58);
+        d2= d1+d2;
+        }
+        switch(nagasa){
+            case kyori.短い:
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return true;
+                } else {
+                return false;
+                }
+            case kyori.長い:
+                if (Math.idiv(d2/sonar_quality, 58) * 1.5 < limit) {
+                return false;
+                } else {
+                return true;
+            }
+        }
+  }
+   
+
 
   //% color="#f071bd" weight=26 blockId=eureka_CdS block="単体_ﾌｫﾄﾘﾌﾚｸﾀｰ |%pin|" group="5_単体ユニットセンサー"
   export function eureka_CdS(pin: eureka_IO): number {
@@ -601,6 +678,26 @@ namespace eureka_blocks_soro {
     // Fake function for simulator
     return 0;
   }
+
+  /*
+    //% color="#ff7b00" weight=22 blockId="Temperature_string" 
+    //% block="温度センサDS（文字返し） |%p|"
+    //% p.fieldEditor="gridpicker" p.fieldOptions.columns=4
+    //% group="5_単体ユニットセンサー"
+    export function TemperatureString(p: eureka_IO): string {
+        let temp = Temperature(p);
+        let x = Math.round((temp / 100))
+        let y = Math.round((temp % 100))
+        let z = ''
+        if (temp >= 0) {
+            z = x.toString()
+        }
+        else if (temp < 0) {
+            z = '-' + (-x).toString()
+        }
+        return z
+    }
+    */
 
   //% weight=33 blockId="Temperature_number"
   //% block="温度ｾﾝｻDS |%p|"
