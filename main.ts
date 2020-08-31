@@ -534,9 +534,9 @@ namespace eureka_blocks_soro {
     }
   }
 
-  //% color="#2a2aba" weight=28 blockId=sonar_ping_3 block="きょりが |%limit| cmより |%nagasa| Aﾎﾟｰﾄ |%sonar_quality| " group="5_単体ユニットセンサー"
+  //% color="#2a2aba" weight=28 blockId=sonar_ping_3 block="きょりが |%limit| cmより |%nagasa| Aﾎﾟｰﾄ |%sonar_quality|" group="5_単体ユニットセンサー"
   //% limit.min=0 limit.max=50
-  export function sonar_ping_3(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
+  export function sonar_ping_3(limit: number ,nagasa:kyori,sonar_quality:sonar_avg) :boolean{
         if (sonar_quality　==sonar_avg.平均20回){
             sonar_quality=20;
         }
@@ -612,9 +612,9 @@ namespace eureka_blocks_soro {
         }
 */
     
-  //% color="#009A00" weight=27 blockId=sonar_ping_4 block="きょりが |%limit| cmより |%nagasa| Bﾎﾟｰﾄ |%sonar_quality| " group="5_単体ユニットセンサー"
+  //% color="#2a2aba" weight=27 blockId=sonar_ping_4 block="きょりが |%limit| cmより |%nagasa| Bﾎﾟｰﾄ |%sonar_quality|" group="5_単体ユニットセンサー"
   //% limit.min=0 limit.max=50
-  export function sonar_ping_4(sonar_quality:sonar_avg,limit: number ,nagasa:kyori) :boolean{
+  export function sonar_ping_4(limit: number ,nagasa:kyori,sonar_quality:sonar_avg) :boolean{
         if (sonar_quality　==sonar_avg.平均20回){
             sonar_quality=20;
         }
